@@ -24,26 +24,46 @@
 
 ---
 
-## 🔬 Approach: Hybrid Extraction Strategy
+## 🌐 Live Project Links
 
-This project uses a **two-pronged text extraction strategy** to handle multiple document types without relying on heavy server-side dependencies like Tesseract:
+- **Live Hosted URL:** [https://ai-doc-analyzer-hackathon.vercel.app](https://ai-doc-analyzer-hackathon.vercel.app) *(Replace with your actual Vercel/Netlify link once deployed)*
+- **API Endpoint:** [https://ai-doc-analyzer-backend.onrender.com/api/document-analyze](https://ai-doc-analyzer-backend.onrender.com/api/document-analyze) *(Replace with your actual Render link once deployed)*
 
-| Document Type | Extraction Method | Why |
-|---|---|---|
-| **DOCX** (Word) | `python-docx` library | Directly parses the XML structure of `.docx` files for fast, accurate text extraction including tables. No external API calls needed. |
-| **PDF** | OCR.space Free API | PDFs can contain scanned images or complex layouts. OCR.space handles server-side rendering and OCR, returning clean text — no Tesseract/Poppler install required. |
-| **Images** (PNG, JPG, etc.) | OCR.space Free API | Uses Engine 2 (advanced OCR) for high-accuracy text recognition from photographs and scans. |
+---
 
-After text extraction, the content is sent to **Gemini 1.5 Flash** with a strict system instruction that forces a structured JSON response containing:
+## 🔑 The Credentials & Testing
 
-- **Summary** — 2-3 sentence document overview
-- **Named Entities** — People, Dates, Organizations, and Monetary Amounts
-- **Sentiment** — Positive / Neutral / Negative classification
+The backend is secured using an `x-api-key` header. 
+- **API Key:** `docai-hackathon-2026`
 
-This hybrid approach ensures:
-- ✅ **No heavy dependencies** — No Tesseract, Poppler, or wkhtmltopdf needed on the server
-- ✅ **100% free tier** — All APIs used are within generous free-tier limits
-- ✅ **Fast processing** — DOCX extraction is local; only PDF/images hit the OCR API
+**Test the API Instantly via cURL:**
+```bash
+curl -X POST "https://ai-doc-analyzer-backend.onrender.com/api/document-analyze" \
+     -H "Content-Type: application/json" \
+     -H "x-api-key: docai-hackathon-2026" \
+     -d '{
+       "fileName": "test.txt",
+       "fileType": "docx",
+       "fileBase64": "UEB... (Add your base64 string here)"
+     }'
+```
+
+---
+
+## 🤖 AI Tools Used (Disclosure)
+
+- **Gemini 2.0 Flash (via Google AI Studio):** Powers the core intelligence, generating structured layouts, extracting entities (names, dates, amounts), and determining sentiment. Handled entirely via the `google-genai` Python SDK. Selected for its exceptionally fast response times, high context window, and generous free tier.
+- **OCR.space Free API:** Used for robust server-side OCR on PDFs and Images using their advanced Engine 2/1.
+
+---
+
+## 🔬 Approach: PDFs vs. DOCX & Why Gemini?
+
+We implemented a **Hybrid Extraction Strategy** to handle various document types efficiently without heavy dependencies (like Tesseract):
+1. **DOCX (Word):** We use the lightweight `python-docx` library locally. It directly parses the XML structure (including tables) for immediate, 100% accurate text extraction without making any external API calls.
+2. **PDF & Images:** Since PDFs can contain complex layouts or scanned elements, we offload extraction to the **OCR.space Free API**, passing the Base64 sequence directly. This guarantees clean text from complex documents without requiring users to install Poppler or Tesseract.
+
+Once the raw text is extracted, we pass it directly to **Gemini 2.0 Flash**. We chose Gemini specifically because of its massive context window (allowing us to analyze huge documents at once) and its strict adherence to JSON system instructions. By enforcing a strict JSON output shape at the prompt level, we guarantee the React frontend always receives pristine data for the Summary, Entities grid, and Sentiment badge.
 
 ---
 
