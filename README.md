@@ -27,7 +27,8 @@
 ## 🌐 Live Project Links
 
 - **Live Hosted URL:** [https://ai-doc-analyzer-hackathon.vercel.app](https://ai-doc-analyzer-hackathon.vercel.app) *(Replace with your actual Vercel/Netlify link once deployed)*
-- **API Endpoint:** [https://ai-doc-analyzer-backend.onrender.com/api/document-analyze](https://ai-doc-analyzer-backend.onrender.com/api/document-analyze) *(Replace with your actual Render link once deployed)*
+- **API Endpoint:** [https://ai-doc-analyzer-hackathon.onrender.com/api/document-analyze](https://ai-doc-analyzer-hackathon.onrender.com/api/document-analyze)
+- **GitHub Repository:** [https://github.com/ajayvairam/ai-doc-analyzer-hackathon](https://github.com/ajayvairam/ai-doc-analyzer-hackathon)
 
 ---
 
@@ -38,7 +39,7 @@ The backend is secured using an `x-api-key` header.
 
 **Test the API Instantly via cURL:**
 ```bash
-curl -X POST "https://ai-doc-analyzer-backend.onrender.com/api/document-analyze" \
+curl -X POST "https://ai-doc-analyzer-hackathon.onrender.com/api/document-analyze" \
      -H "Content-Type: application/json" \
      -H "x-api-key: docai-hackathon-2026" \
      -d '{
