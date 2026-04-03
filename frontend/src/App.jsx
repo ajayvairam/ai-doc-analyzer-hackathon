@@ -5,7 +5,7 @@ import FileInfo from './components/FileInfo'
 import LoadingSpinner from './components/LoadingSpinner'
 import ResultsPanel from './components/ResultsPanel'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+const API_URL = import.meta.env.VITE_API_URL || 'https://ai-doc-analyzer-hackathon.onrender.com'
 const API_KEY = import.meta.env.VITE_API_KEY || 'docai-hackathon-2026'
 
 function App() {
