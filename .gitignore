@@ -1,0 +1,24 @@
+# Environments
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+env/
+.Python
+
+# Build and IDE
+dist/
+build/
+.vscode/
+.idea/
+.DS_Store
